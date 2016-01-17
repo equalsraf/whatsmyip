@@ -2,6 +2,9 @@
 name = "whatsmyip"
 version = "0.1.0"
 authors = ["raf"]
+description = "A rust crate to figure out your external IP address"
+license = "ISC"
+repository = "https://github.com/equalsraf/whatsmyip"
 
 [dependencies]
 hyper = "0.7"
