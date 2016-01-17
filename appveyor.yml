@@ -1,0 +1,23 @@
+install:
+# Need Mingw to link against external dependencies
+- SET PATH=%PATH%;C:\MinGW\bin
+# rust-crypto needs these flags when using 32bit Mingw
+- SET CFLAGS=-mmmx -msse
+# OpenSSL (for hyper)
+- set PATH=%PATH%;C:\OpenSSL-Win32\bin
+- set LIBRARY_PATH=%LIBRARY_PATH%;C:\OpenSSL-Win32\bin
+- set C_INCLUDE_PATH=%C_INCLUDE_PATH%;C:\OpenSSL-Win32\include
+# Rust
+- ps: Start-FileDownload http://static.rust-lang.org/dist/$env:PLATFORM -FileName rust.exe
+- rust.exe /VERYSILENT /NORESTART /DIR="C:\Program Files\Rust"
+- SET PATH=%PATH%;C:\Program Files\Rust\bin
+- rustc -vV
+- cargo -V
+- set RUST_BACKTRACE=1
+platform:
+- rust-1.5.0-i686-pc-windows-gnu.exe
+- rust-beta-i686-pc-windows-gnu.exe
+# To build against multiple rust versions add them here
+build: false
+test_script:
+- cargo test --verbose
